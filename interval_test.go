@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Tests a valid interval
 func TestIntervalValid(t *testing.T) {
 	validate := validator.New()
 	i := Interval{0, 5}
@@ -14,6 +15,7 @@ func TestIntervalValid(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+// Tests a valid interval with a single member
 func TestIntervalValidPoint(t *testing.T) {
 	validate := validator.New()
 	i := Interval{5, 5}
@@ -21,6 +23,7 @@ func TestIntervalValidPoint(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+// Tests an interval with invalid ordering
 func TestIntervalInvalid(t *testing.T) {
 	validate := validator.New()
 	i := Interval{5, 0}
@@ -28,7 +31,7 @@ func TestIntervalInvalid(t *testing.T) {
 	assert.Error(t, err)
 }
 
-
+// Tests stringfication
 func TestIntervalString(t *testing.T) {
 	i := Interval{0, 5}
 	assert.Equal(t, "[0, 5]", i.String())
