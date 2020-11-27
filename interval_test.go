@@ -54,3 +54,15 @@ func TestIntervalOverlaps(t *testing.T) {
 	assert.False(t, i.Overlaps(Interval{0, 2}))
 	assert.False(t, i.Overlaps(Interval{6, 7}))
 }
+
+// Tests whether an interval is contained by another.
+func TestIntervalContains(t *testing.T) {
+	i := Interval{2, 5}
+	assert.True(t, i.Contains(Interval{3, 4}))
+	assert.True(t, i.Contains(Interval{2, 4}))
+	assert.True(t, i.Contains(Interval{3, 5}))
+	assert.True(t, i.Contains(Interval{2, 5}))
+	assert.False(t, i.Contains(Interval{1, 3}))
+	assert.False(t, i.Contains(Interval{4, 6}))
+	assert.False(t, i.Contains(Interval{0, 1}))
+}

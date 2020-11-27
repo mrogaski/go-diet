@@ -1,6 +1,8 @@
 package diet
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Interval is a closed interval over integers.
 type Interval struct {
@@ -24,6 +26,14 @@ func (it Interval) Has(x int) bool {
 // Overlaps tests whether two intervals have common members.
 func (it Interval) Overlaps(that Interval) bool {
 	if it.Begin <= that.End && that.Begin <= it.End {
+		return true
+	}
+	return false
+}
+
+// Contains tests whether the interval contains another interval.
+func (it Interval) Contains(that Interval) bool {
+	if it.Begin <= that.Begin && it.End >= that.End {
 		return true
 	}
 	return false
