@@ -13,7 +13,7 @@ vet:
 		$(GOCMD) vet ./...
 
 test:
-		$(GOCMD) test -v ./...
+		$(GOCMD) test ./... -v -coverprofile=coverage.txt -covermode=atomic
 
 clean:
 		$(GOCMD) clean
