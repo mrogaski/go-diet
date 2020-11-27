@@ -15,6 +15,11 @@ func (it Interval) String() string {
 	return fmt.Sprintf("[%d, %d]", it.Begin, it.End)
 }
 
+// Validate checks the validity of the Interval struct and returns errors if the struct is invalid.
+func (it Interval) Validate() error {
+	return validate.Struct(it)
+}
+
 // Has tests membership of a given integer.
 func (it Interval) Has(x int) bool {
 	if it.Begin <= x && x <= it.End {
