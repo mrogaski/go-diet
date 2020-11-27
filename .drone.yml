@@ -6,7 +6,8 @@ name: go-1-15
 steps:
   - name: test
     image: golang:1.15
-    commands: go test ./...
+    commands:
+      - make test
 
 ---
 kind: pipeline
@@ -16,7 +17,8 @@ name: go-1-14
 steps:
   - name: test
     image: golang:1.14
-    commands: go test ./...
+    commands:
+      - make test
 
 ---
 kind: pipeline
@@ -26,4 +28,5 @@ name: go-1-13
 steps:
   - name: test
     image: golang:1.13
-    commands: go test ./...
+    commands:
+      - make test
