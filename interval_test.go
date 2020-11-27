@@ -44,3 +44,13 @@ func TestIntervalHas(t *testing.T) {
 	assert.False(t, i.Has(-2))
 	assert.False(t, i.Has(7))
 }
+
+// Tests overlap of intervals
+func TestIntervalOverlaps(t *testing.T) {
+	i := Interval{3, 5}
+	assert.True(t, i.Overlaps(Interval{0, 3}))
+	assert.True(t, i.Overlaps(Interval{4, 5}))
+	assert.True(t, i.Overlaps(Interval{5, 7}))
+	assert.False(t, i.Overlaps(Interval{0, 2}))
+	assert.False(t, i.Overlaps(Interval{6, 7}))
+}

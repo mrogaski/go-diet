@@ -13,9 +13,17 @@ func (it Interval) String() string {
 	return fmt.Sprintf("[%d, %d]", it.Begin, it.End)
 }
 
-//Has tests membership of a given integer.
+// Has tests membership of a given integer.
 func (it Interval) Has(x int) bool {
 	if it.Begin <= x && x <= it.End {
+		return true
+	}
+	return false
+}
+
+// Overlaps tests whether two intervals have common members.
+func (it Interval) Overlaps(that Interval) bool {
+	if it.Begin <= that.End && that.Begin <= it.End {
 		return true
 	}
 	return false
