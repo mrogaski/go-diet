@@ -12,3 +12,11 @@ type Interval struct {
 func (it Interval) String() string {
 	return fmt.Sprintf("[%d, %d]", it.Begin, it.End)
 }
+
+//Has tests membership of a given integer.
+func (it Interval) Has(x int) bool {
+	if it.Begin <= x && x <= it.End {
+		return true
+	}
+	return false
+}
