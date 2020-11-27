@@ -66,3 +66,14 @@ func TestIntervalContains(t *testing.T) {
 	assert.False(t, i.Contains(Interval{4, 6}))
 	assert.False(t, i.Contains(Interval{0, 1}))
 }
+
+// Tests adjacency.
+func TestIntervalIsAdjacent(t *testing.T) {
+	i := Interval{3, 5}
+	assert.True(t, i.IsAdjacent(Interval{0, 2}))
+	assert.True(t, i.IsAdjacent(Interval{6, 8}))
+	assert.False(t, i.IsAdjacent(Interval{-1, 1}))
+	assert.False(t, i.IsAdjacent(Interval{7, 9}))
+	assert.False(t, i.IsAdjacent(Interval{2, 4}))
+	assert.False(t, i.IsAdjacent(Interval{4, 6}))
+}

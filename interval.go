@@ -24,16 +24,24 @@ func (it Interval) Has(x int) bool {
 }
 
 // Overlaps tests whether two intervals have common members.
-func (it Interval) Overlaps(that Interval) bool {
-	if it.Begin <= that.End && that.Begin <= it.End {
+func (it Interval) Overlaps(other Interval) bool {
+	if it.Begin <= other.End && other.Begin <= it.End {
 		return true
 	}
 	return false
 }
 
 // Contains tests whether the interval contains another interval.
-func (it Interval) Contains(that Interval) bool {
-	if it.Begin <= that.Begin && it.End >= that.End {
+func (it Interval) Contains(other Interval) bool {
+	if it.Begin <= other.Begin && it.End >= other.End {
+		return true
+	}
+	return false
+}
+
+// IsAdjacent tests whether intervals are adjacent.
+func (it Interval) IsAdjacent(other Interval) bool {
+	if it.Begin-1 == other.End || it.End+1 == other.Begin {
 		return true
 	}
 	return false
