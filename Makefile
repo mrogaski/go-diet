@@ -1,6 +1,6 @@
 GOCMD=go
 
-.PHONY: test clean
+.PHONY: fmt vet test clean
 
 default: all
 

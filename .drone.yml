@@ -8,6 +8,11 @@ steps:
     image: golang:1.15
     commands:
       - make test
+  - name: coverage
+    image: plugins/codecov
+    settings:
+      token:
+        from_secret: codecov-token
 
 ---
 kind: pipeline
@@ -19,6 +24,11 @@ steps:
     image: golang:1.14
     commands:
       - make test
+  - name: coverage
+    image: plugins/codecov
+    settings:
+      token:
+        from_secret: codecov-token
 
 ---
 kind: pipeline
@@ -30,3 +40,8 @@ steps:
     image: golang:1.13
     commands:
       - make test
+  - name: coverage
+    image: plugins/codecov
+    settings:
+      token:
+        from_secret: codecov-token
