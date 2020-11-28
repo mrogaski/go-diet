@@ -51,3 +51,11 @@ func (it Interval) IsAdjacent(other Interval) bool {
 	}
 	return false
 }
+
+// Merge combines two adjacent or overlapping intervals.
+func (it Interval) Merge(other Interval) (Interval, error) {
+	if !it.Overlaps(other) && !it.IsAdjacent(other) {
+		return Interval{}, fmt.Errorf("intervals are not overlapping or adjacent")
+	}
+	return Interval{Begin: min(it.Begin, other.Begin), End: max(it.End, other.End)}, nil
+}

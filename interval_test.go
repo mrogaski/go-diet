@@ -73,3 +73,30 @@ func TestIntervalIsAdjacent(t *testing.T) {
 	assert.False(t, i.IsAdjacent(Interval{2, 4}))
 	assert.False(t, i.IsAdjacent(Interval{4, 6}))
 }
+
+// Test merging of intervals
+func TestIntervalMergeAscending(t *testing.T) {
+	x := Interval{0, 2}
+	y := Interval{3, 5}
+	z, err := x.Merge(y)
+	assert.NoError(t, err)
+	assert.Equal(t, z.Begin, 0)
+	assert.Equal(t, z.End, 5)
+}
+
+func TestIntervalMergeDescending(t *testing.T) {
+	x := Interval{3, 5}
+	y := Interval{0, 2}
+	z, err := x.Merge(y)
+	assert.NoError(t, err)
+	assert.Equal(t, z.Begin, 0)
+	assert.Equal(t, z.End, 5)
+}
+
+func TestMergeError(t *testing.T) {
+	x := Interval{0, 2}
+	y := Interval{4, 6}
+	z, err := x.Merge(y)
+	assert.Error(t, err)
+	assert.Zero(t, z)
+}
