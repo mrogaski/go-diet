@@ -1,6 +1,9 @@
 package diet
 
-import "github.com/go-playground/validator/v10"
+import (
+	"github.com/go-playground/validator/v10"
+	"github.com/pkg/errors"
+)
 
 // DiscreteIntervalEncodingTree is a structure for storing subsets of integers as encoded intervals.
 type DiscreteIntervalEncodingTree struct {
@@ -45,7 +48,7 @@ func (diet *DiscreteIntervalEncodingTree) Insert(it Interval) error {
 	if diet.Interval.Overlaps(it) || diet.Interval.IsAdjacent(it) {
 		merged, err := diet.Interval.Merge(it)
 		if err != nil {
-			return err
+			return errors.Wrap(err, "merge failed on insert")
 		}
 		diet.Interval = &merged
 		return nil
