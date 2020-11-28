@@ -33,6 +33,52 @@ func (diet *DiscreteIntervalEncodingTree) Validate() error {
 	return validate.Struct(diet)
 }
 
+// Insert adds an interval to the tree.
+func (diet *DiscreteIntervalEncodingTree) Insert(it Interval) error {
+	if diet.Interval == nil {
+		diet.Interval = &it
+		return nil
+	}
+	if *diet.Interval == it {
+		return nil
+	}
+	if diet.Interval.Overlaps(it) || diet.Interval.IsAdjacent(it) {
+		merged, err := diet.Interval.Merge(it)
+		if err != nil {
+			return err
+		}
+		diet.Interval = &merged
+		return nil
+	}
+	if diet.Interval.Begin > it.Begin {
+		if diet.Left == nil {
+			diet.Left = new(DiscreteIntervalEncodingTree)
+		}
+		return diet.Left.Insert(it)
+	} else {
+		if diet.Right == nil {
+			diet.Right = new(DiscreteIntervalEncodingTree)
+		}
+		return diet.Right.Insert(it)
+	}
+}
+
+// Intervals traverses the tree and returns an array of intervals.
+func (diet *DiscreteIntervalEncodingTree) Intervals() []Interval {
+	result := make([]Interval, 0)
+	if diet.Interval == nil {
+		return result
+	}
+	if diet.Left != nil {
+		result = append(result, diet.Left.Intervals()...)
+	}
+	result = append(result, *diet.Interval)
+	if diet.Right != nil {
+		result = append(result, diet.Right.Intervals()...)
+	}
+	return result
+}
+
 // single instance of Validate to cache struct information
 var validate *validator.Validate
 

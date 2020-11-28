@@ -45,3 +45,29 @@ func TestDiscreteIntervalEncodingTreeValidateInvalidSubtree(t *testing.T) {
 	tree = &DiscreteIntervalEncodingTree{Interval: &Interval{0, 2}, Right: sub}
 	assert.Error(t, tree.Validate())
 }
+
+// Tree insert
+func TestDiscreteIntervalEncodingTreeInsert(t *testing.T) {
+	tests := []struct {
+		input    []Interval
+		expected []Interval
+	}{
+		{
+			[]Interval{{0, 1}},
+			[]Interval{{0, 1}},
+		},
+		{
+			[]Interval{{4, 6}, {0, 2}, {8, 10}},
+			[]Interval{{0, 2}, {4, 6}, {8, 10}},
+		},
+	}
+
+	for _, tc := range tests {
+		tree := new(DiscreteIntervalEncodingTree)
+		for _, it := range tc.input {
+			err := tree.Insert(it)
+			assert.NoError(t, err)
+		}
+		assert.Equal(t, tc.expected, tree.Intervals())
+	}
+}
